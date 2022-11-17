@@ -1,0 +1,8 @@
+.Event_Title {
+    color: rgb(84, 84, 84);
+    font-weight: 500;
+}
+
+.Event_Title:hover {
+   color: black
+}

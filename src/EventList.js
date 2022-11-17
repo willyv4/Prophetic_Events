@@ -1,21 +1,12 @@
 import supabase from "./supabaseClient";
-import { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Paper from "@mui/material/Paper";
-import { styled } from "@mui/material/styles";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(0.5),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
+import React, { useEffect, useState } from "react";
+import "./EventList.css";
 
 const EventList = () => {
   const [err, setErr] = useState(null);
   const [events, setEvents] = useState(null);
+  const [showComponent, setShowComponent] = useState(true);
+  const handleClick = () => setShowComponent(!showComponent);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -36,21 +27,23 @@ const EventList = () => {
   }, []);
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <div sx={{ display: "flex", width: "100%" }}>
       {err && <p>{err}</p>}
       {events && (
-        <Stack
-          spacing={0.5}
-          minWidth={250}
-          maxWidth={400}
-          className="Event_List"
-        >
+        <div key={events} flex>
           {events.map((events) => (
-            <Item>{events.title}</Item>
+            <p className="Event_Title" onClick={handleClick}>
+              {events.id} {events.title}
+              {showComponent && (
+                <p>
+                  add text here and configure specific onclicks according id
+                </p>
+              )}
+            </p>
           ))}
-        </Stack>
+        </div>
       )}
-    </Box>
+    </div>
   );
 };
 
